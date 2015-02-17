@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/homescreen"
+    android:paddingTop="15dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name"
+        android:id="@+id/titlemotion"
+        android:width="210dp"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:height="30dp"
+        android:autoText="false"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fefdff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_main_window"
+        android:id="@+id/textApplication"
+        android:layout_below="@+id/titlemotion"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_sensor_layout"
+        android:id="@+id/btnSensorLayout"
+        android:layout_marginTop="84dp"
+        android:layout_below="@+id/textApplication"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2"
+        android:shadowColor="#e7e6e9"
+        android:singleLine="false"
+        android:textColorHighlight="#ffffff"
+        android:background="@drawable/button_selector"
+        android:layout_alignRight="@+id/button2"
+        android:layout_alignEnd="@+id/button2"
+        android:width="100dp"
+        android:padding="12dp"
+        android:clickable="true" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Call Buddy"
+        android:id="@+id/button2"
+        android:layout_below="@+id/btnSensorLayout"
+        android:layout_alignLeft="@+id/titlemotion"
+        android:layout_alignStart="@+id/titlemotion"
+        android:background="@drawable/button_selector"
+        android:layout_alignRight="@+id/titlemotion"
+        android:layout_alignEnd="@+id/titlemotion"
+        android:width="100dp"
+        android:padding="12dp"
+        android:singleLine="false"
+        android:clickable="true"
+        android:enabled="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Emergency Call"
+        android:id="@+id/button3"
+        android:layout_below="@+id/button2"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2"
+        android:background="@drawable/button_selector"
+        android:layout_alignRight="@+id/button2"
+        android:layout_alignEnd="@+id/button2"
+        android:paddingEnd="12dp"
+        android:paddingStart="12dp"
+        android:padding="12dp"
+        android:width="100dp"
+        android:shadowColor="#e7e6e9"
+        android:clickable="true"
+        android:enabled="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/home_down_txt"
+        android:id="@+id/textPleasedo"
+        android:width="100dp"
+        android:textStyle="italic"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="15dp"
+        android:padding="15dp"
+        android:textColor="#fffbf7"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_get_all_sensors"
+        android:id="@+id/btnGetAllSensors"
+        android:background="@drawable/button_selector"
+        android:paddingEnd="12dp"
+        android:paddingStart="12dp"
+        android:padding="12dp"
+        android:width="100dp"
+        android:shadowColor="#e7e6e9"
+        android:clickable="true"
+        android:enabled="true"
+        android:layout_below="@+id/button3"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_alignStart="@+id/button3"
+        android:layout_alignRight="@+id/button3"
+        android:layout_alignEnd="@+id/button3"/>
+
+</RelativeLayout>

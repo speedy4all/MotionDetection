@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/homescreen"
+android:paddingTop="15dp">
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text="Motion Detection"
+    android:id="@+id/titlemotion"
+    android:width="210dp"
+    android:textStyle="bold"
+    android:textSize="25dp"
+    android:height="30dp"
+    android:autoText="false"
+    android:layout_centerHorizontal="true"
+    android:textColor="#fefdff" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Application"
+    android:id="@+id/textApplication"
+    android:layout_below="@+id/titlemotion"
+    android:layout_centerHorizontal="true"
+    android:textSize="25dp"
+    android:textStyle="bold"
+    android:textColor="#ffffff" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/txt_home_screen"
+    android:id="@+id/texttocapture"
+    android:height="110dp"
+    android:textStyle="normal|bold"
+    android:textColor="#fff9ff"
+    android:layout_alignWithParentIfMissing="true"
+    android:textSize="19dp"
+    android:padding="30dp"
+    android:layout_above="@+id/button0"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:width="200dp" />
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/txt_start_button"
+    android:id="@+id/button0"
+    android:textStyle="bold"
+    android:clickable="true"
+    android:layout_centerVertical="true"
+    android:layout_alignLeft="@+id/titlemotion"
+    android:layout_alignStart="@+id/titlemotion"
+    android:layout_alignRight="@+id/titlemotion"
+    android:layout_alignEnd="@+id/titlemotion"
+    android:background="@drawable/button_selector"
+    android:width="100dp"
+    android:padding="12dp" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:text="@string/txt_home_warning"
+    android:id="@+id/textPleasedo"
+    android:width="100dp"
+    android:textStyle="italic"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:textSize="15dp"
+    android:padding="15dp"
+    android:textColor="#fffbf7"/>
+
+</RelativeLayout>

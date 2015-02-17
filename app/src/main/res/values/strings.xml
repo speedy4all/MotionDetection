@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Motion Detection</string>
+    <string name="action_settings">Settings</string>
+    <string name="home_down_txt">*Please do not close the application from task manager after starting it.</string>
+    <string name="btn_get_all_sensors">Show my device sensors</string>
+    <string name="txt_title_settings">Settings</string>
+    <string name="txt_rdEmergencyCall">Emergency Call</string>
+    <string name="txt_rdEmergencySms">Emergency SMS</string>
+    <string name="txt_rdEmergencyBoth">Both Actions</string>
+    <string name="btn_addCallPerson">Add</string>
+    <string name="btn_modifyCallPerson">Modify</string>
+    <string name="txt_CallPerson">Emergency Number</string>
+    <string name="txt_CallPersonEmpty">No number selected</string>
+    <string name="txt_chkUseService">Enable service for monitoring</string>
+    <string name="alert_no_pref_title">Warning !</string>
+    <string name="alert_no_pref_message">You have no settings saved, do you want to set default values ?</string>
+    <string name="quit_text_message">Do you want to close the application ?</string>
+    <string name="type_call">CALL</string>
+    <string name="type_sms">SMS</string>
+    <string name="type_both">BOTH</string>
+    <string name="btn_sensor_layout">Display sensor data</string>
+    <string name="txt_main_window">Application</string>
+    <string name="txt_home_screen">To open main window please  tap  on  the  Start  button  below.</string>
+    <string name="txt_start_button">START</string>
+    <string name="txt_home_warning">*Please do not close the application from task manager after starting it.</string>
+    <string name="sensor_txt_title_layout">Sensor Monitor</string>
+    <string name="sensor_txt_accelerometer">Accelerometer</string>
+    <string name="sensor_txt_accelerometer_max">Accelerometer max values</string>
+    <string name="sensor_txt_acc_x_axis">X Axis %.2f</string>
+    <string name="sensor_txt_acc_y_axis">Y Axis %.2f</string>
+    <string name="sensor_txt_acc_z_axis">Z Axis %.2f</string>
+    <string name="sensor_txt_acc_x_axis_max">MAX X Axis %.2f</string>
+    <string name="sensor_txt_acc_y_axis_max">MAX Y Axis %.2f</string>
+    <string name="sensor_txt_acc_z_axis_max">MAX Z Axis %.2f</string>
+    <string name="sensor_txt_gravity">Gravitation</string>
+    <string name="sensor_txt_gravity_max">Gravitation max values</string>
+    <string name="sensor_txt_gra_x_axis">X Axis %.2f</string>
+    <string name="sensor_txt_gra_y_axis">Y Axis %.2f</string>
+    <string name="sensor_txt_gra_z_axis">Z Axis %.2f</string>
+    <string name="sensor_txt_gra_x_axis_max">MAX X Axis %.2f</string>
+    <string name="sensor_txt_gra_y_axis_max">MAX Y Axis %.2f</string>
+    <string name="sensor_txt_gra_z_axis_max">MAX Z Axis %.2f</string>
+    <string name="sensor_menu_text">Sensor settings</string>
+
+
+
+</resources>

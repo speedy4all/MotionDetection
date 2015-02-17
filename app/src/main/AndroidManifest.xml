@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.motiondetection.app" >
+
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- Splash screen -->
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Main activity -->
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <!-- Home activity -->
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <!-- Settings activity -->
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/txt_title_settings" >
+        </activity>
+        <!-- Sensor activity -->
+        <activity
+            android:name=".SensorActivity"
+            android:label="@string/sensor_txt_title_layout" >
+        </activity>
+
+
+    </application>
+
+</manifest>
