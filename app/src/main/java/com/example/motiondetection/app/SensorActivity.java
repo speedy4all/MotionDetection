@@ -1,6 +1,5 @@
 package com.example.motiondetection.app;
 
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,9 +11,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-/**
- * Created by Bogdan on 12/02/2015.
- */
+
 public class SensorActivity extends ActionBarActivity implements SensorEventListener{
 
     //Declararea variabilelor UI
@@ -66,11 +63,7 @@ public class SensorActivity extends ActionBarActivity implements SensorEventList
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.sensor_settings) {
-            //De initializat o fereastra cu setari senzori
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.sensor_settings || super.onOptionsItemSelected(item);
     }
     //Metoda initializare elemente UI
     private void initView()
@@ -99,14 +92,14 @@ public class SensorActivity extends ActionBarActivity implements SensorEventList
         if(sensorManager.isSensorAvailable(Sensor.TYPE_GRAVITY))
             sensorManager.wakeSensor(Sensor.TYPE_GRAVITY);
         activitySensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        activitySensorManager.registerListener(this, activitySensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION), SensorManager.SENSOR_DELAY_NORMAL);
-        activitySensorManager.registerListener(this, activitySensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY), SensorManager.SENSOR_DELAY_NORMAL);
+        activitySensorManager.registerListener(this, activitySensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION), SensorManager.SENSOR_DELAY_GAME);
+        activitySensorManager.registerListener(this, activitySensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY), SensorManager.SENSOR_DELAY_GAME);
     }
 
     @Override
     protected void onResume() {
-        activitySensorManager.registerListener(this, activitySensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION), SensorManager.SENSOR_DELAY_NORMAL);
-        activitySensorManager.registerListener(this, activitySensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY), SensorManager.SENSOR_DELAY_NORMAL);
+        activitySensorManager.registerListener(this, activitySensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION), SensorManager.SENSOR_DELAY_GAME);
+        activitySensorManager.registerListener(this, activitySensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY), SensorManager.SENSOR_DELAY_GAME);
         super.onResume();
     }
 
