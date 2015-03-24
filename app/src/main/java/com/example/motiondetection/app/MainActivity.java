@@ -11,13 +11,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-
+    UserSettings userSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        userSettings = new UserSettings(this);
         addButtonClickListner();
     }
 
@@ -29,10 +31,29 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v)
             {
+
+
+                if ( userSettings.getServicePreference() )
+                {
+                    //Toast.makeText(getBaseContext(), "Am intrat pe aici", Toast.LENGTH_SHORT).show();
+                    startService();
+
+                }
                 startActivity(new Intent(MainActivity.this, HomeActivity.class));
 
             }
         });
+    }
+
+
+    // Method to start the service
+    public void startService() {
+        startService(new Intent(getBaseContext(), WorkService.class));
+    }
+
+    // Method to stop the service
+    public void stopService() {
+        stopService(new Intent(getBaseContext(), WorkService.class));
     }
     //Metoda pentru prinderea evenimentului de back pressed si afisare alerta inchidere
     @Override

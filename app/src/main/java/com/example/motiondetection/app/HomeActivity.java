@@ -17,6 +17,7 @@ import java.util.List;
 
 public class HomeActivity extends ActionBarActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,16 @@ public class HomeActivity extends ActionBarActivity {
         addButtonClickListner();
     }
 
+    @Override
+    protected void onDestroy() {
+        // Method to stop the service
+        //stopService();
+        super.onDestroy();
+    }
+
+    public void stopService() {
+        stopService(new Intent(getBaseContext(), WorkService.class));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

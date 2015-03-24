@@ -48,7 +48,17 @@
             android:name=".SensorActivity"
             android:label="@string/sensor_txt_title_layout" >
         </activity>
+        <!-- Service activity -->
+        <service
+            android:name=".WorkService"
+            android:exported="false"/>
 
+        <receiver android:name=".ServiceReceiver">
+            <intent-filter>
+                <action android:name="com.example.motiondetection.app.CUSTOM_INTENT">
+                </action>
+            </intent-filter>
+        </receiver>
 
     </application>
 
