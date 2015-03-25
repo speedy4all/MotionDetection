@@ -1,6 +1,7 @@
 package com.example.motiondetection.app;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -17,12 +18,16 @@ import java.util.List;
 
 public class HomeActivity extends ActionBarActivity {
 
-
+    Context context;
+    Button btnStartService;
+    Button btnStopService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+         btnStartService = (Button)findViewById(R.id.btnStartService);
+         btnStopService = (Button)findViewById(R.id.btnStopService);
+        context = this;
         addButtonClickListner();
     }
 
@@ -60,6 +65,16 @@ public class HomeActivity extends ActionBarActivity {
 
     public void addButtonClickListner()
     {
+        if (!WorkService.isServiceRunning(context, WorkService.class))
+        {
+            EnableStopBtn();
+            startService();
+        }
+        else
+        {
+            EnableStopBtn();
+        }
+
         Button btnNavigator1 = (Button)findViewById(R.id.btnSensorLayout);
         btnNavigator1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +133,40 @@ public class HomeActivity extends ActionBarActivity {
                         .show();
             }
         });
-    }
 
+
+
+
+        btnStartService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!WorkService.isServiceRunning(context, WorkService.class))
+                {
+                    EnableStopBtn();
+                    startService();
+                }
+            }
+        });
+        btnStopService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (WorkService.isServiceRunning(context, WorkService.class))
+                {
+                    EnableStartBtn();
+                    stopService();
+                }
+            }
+        });
+    }
+    private void EnableStartBtn(){
+        btnStartService.setEnabled(true);
+        btnStopService.setEnabled(false);
+    }
+    private void EnableStopBtn(){
+        btnStartService.setEnabled(false);
+        btnStopService.setEnabled(true);
+    }
+    private void startService() {
+        startService(new Intent(getBaseContext(), WorkService.class));
+    }
 }

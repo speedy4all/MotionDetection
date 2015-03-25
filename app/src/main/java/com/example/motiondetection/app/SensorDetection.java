@@ -1,5 +1,6 @@
 package com.example.motiondetection.app;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -14,15 +15,24 @@ public class SensorDetection implements SensorEventListener {
     public static String WALKING_STATE = "WALKING";
     public static String FALLING_STATE = "FALLING";
     public static String STANDING_STATE = "STANDING";
-
+    public static int FINAL_STATE = 0;
+    public static String FINAL_PREVIOUS_STATE = "";
     public double ax,ay,az;
     public double accelerationVector;
     static int BUFF_SIZE = 50;
     static public double[] sampleData = new double[BUFF_SIZE];
     double sigmaFilter=0.5,thresholdHigh=10,thresholdLow=5,thresholdMiddle=2;
     private SensorManager sensorManager;
-    public static String CURRENT_STATE,PREVIEW_STATE;
+    public static String CURRENT_STATE = "none",PREVIEW_STATE = "none";
 
+    public SensorDetection(Context context){
+        for(int i=0; i<BUFF_SIZE; i++){
+            sampleData[i]=0;
+        }
+        sensorManager=(SensorManager) context.getSystemService(context.SENSOR_SERVICE);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
+
+    }
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
@@ -30,29 +40,34 @@ public class SensorDetection implements SensorEventListener {
             ay=event.values[1];
             az=event.values[2];
             AddData(ax,ay,az);
-            posture_recognition(sampleData,ay);
+            ActivityRecognition(sampleData,ay);
             SystemState(CURRENT_STATE,PREVIEW_STATE);
             if(!PREVIEW_STATE.equalsIgnoreCase(CURRENT_STATE)){
-                PREVIEW_STATE = CURRENT_STATE;
+                PREVIEW_STATE  = CURRENT_STATE;
             }
-
-        }
+     }
+    }
+    public void Stop(){
+        sensorManager.unregisterListener(this);
     }
     private void SystemState(String curr_state,String prev_state) {
-        // TODO Auto-generated method stub
 
         //Fall !!
         if(!prev_state.equalsIgnoreCase(curr_state)){
             if(curr_state.equalsIgnoreCase(FALLING_STATE)){
+                FINAL_STATE = 0;
                 //
             }
             if(curr_state.equalsIgnoreCase(SITTING_STATE)){
+               FINAL_STATE = 1;
                //
             }
             if(curr_state.equalsIgnoreCase(STANDING_STATE)){
+                FINAL_STATE = 2;
                 //
             }
             if(curr_state.equalsIgnoreCase(WALKING_STATE)){
+                FINAL_STATE = 3;
                 //
             }
         }
@@ -65,7 +80,7 @@ public class SensorDetection implements SensorEventListener {
     }
 
     private int ComputeZeroCrossingRate(double[] samplingData) {
-        // TODO Auto-generated method stub
+
         int count=0;
         for(int i=1;i<=BUFF_SIZE-1;i++){
             if( (samplingData[i]-thresholdHigh) < sigmaFilter && (samplingData[i-1]-thresholdHigh) > sigmaFilter)
@@ -74,7 +89,7 @@ public class SensorDetection implements SensorEventListener {
         return count;
     }
     private void AddData(double ax2, double ay2, double az2) {
-        // TODO Auto-generated method stub
+
         accelerationVector = Math.sqrt( ax*ax + ay*ay + az*az );
         for(int i=0 ;i<=BUFF_SIZE-2 ;i++){
             sampleData[i] = sampleData[i+1];
@@ -82,8 +97,8 @@ public class SensorDetection implements SensorEventListener {
         sampleData[BUFF_SIZE-1] = accelerationVector;
 
     }
-    private void posture_recognition(double[] sample,double ay2) {
-        // TODO Auto-generated method stub
+    private void ActivityRecognition(double[] sample,double ay2) {
+
         int zeroCrossingRate = ComputeZeroCrossingRate(sample);
         if(zeroCrossingRate == 0){
 

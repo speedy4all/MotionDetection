@@ -43,6 +43,8 @@
     <string name="sensor_txt_gra_y_axis_max">MAX Y Axis %.2f</string>
     <string name="sensor_txt_gra_z_axis_max">MAX Z Axis %.2f</string>
     <string name="sensor_menu_text">Sensor settings</string>
+    <string name="btn_stop_service">Stop service</string>
+    <string name="btn_start_service">Start service</string>
 
 
 

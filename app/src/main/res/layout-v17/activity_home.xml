@@ -84,6 +84,36 @@
         android:shadowColor="#e7e6e9"
         android:clickable="true"
         android:enabled="true" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnStartService"
+        android:text="@string/btn_start_service"
+        android:background="@drawable/button_selector"
+        android:padding="12dp"
+        android:width="100dp"
+        android:clickable="true"
+        android:layout_below="@id/btnGetAllSensors"
+        android:layout_alignLeft="@id/btnGetAllSensors"
+        android:layout_alignStart="@id/btnGetAllSensors"
+        android:layout_alignRight="@id/btnGetAllSensors"
+        android:layout_alignEnd="@id/btnGetAllSensors" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_stop_service"
+        android:id="@+id/btnStopService"
+        android:background="@drawable/button_selector"
+        android:padding="12dp"
+        android:width="100dp"
+        android:clickable="true"
+        android:layout_below="@id/btnStartService"
+        android:layout_alignLeft="@id/btnStartService"
+        android:layout_alignStart="@id/btnStartService"
+        android:layout_alignRight="@id/btnStartService"
+        android:layout_alignEnd="@id/btnStartService" />
+
+
 
     <TextView
         android:layout_width="wrap_content"

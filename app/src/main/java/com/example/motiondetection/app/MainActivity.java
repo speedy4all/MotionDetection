@@ -1,6 +1,7 @@
 package com.example.motiondetection.app;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
     UserSettings userSettings;
+    Context context = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +37,8 @@ public class MainActivity extends ActionBarActivity {
 
                 if ( userSettings.getServicePreference() )
                 {
-                    //Toast.makeText(getBaseContext(), "Am intrat pe aici", Toast.LENGTH_SHORT).show();
-                    startService();
+                    if ( !WorkService.isServiceRunning(context, WorkService.class) )
+                        startService();
 
                 }
                 startActivity(new Intent(MainActivity.this, HomeActivity.class));
