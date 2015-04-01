@@ -45,7 +45,9 @@
     <string name="sensor_menu_text">Sensor settings</string>
     <string name="btn_stop_service">Stop service</string>
     <string name="btn_start_service">Start service</string>
-
+    <string name="ask_for_call">Do you want to make an emergency call ?</string>
+    <string name="ask_for_sms">Do you want to send an emergency SMS ?</string>
+    <string name="ask_for_both">Do you want to call and send an emergency SMS ?</string>
 
 
 </resources>
