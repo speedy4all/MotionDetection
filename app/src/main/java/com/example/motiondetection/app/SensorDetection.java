@@ -102,19 +102,22 @@ public class SensorDetection implements SensorEventListener {
     }
 
     private void DetectFall() {
-        int min = Integer.MAX_VALUE, max = 0;
+        int min = Integer.MAX_VALUE, max = 0, maxIndex = 0, minIndex = 0;
         for (int i = 1; i < sampleData.length; i++) {
             if (sampleData[i] - sampleData[i - 1] > max) {
                 max = (int) sampleData[i] - (int) sampleData[i - 1];
+                maxIndex = i;
             }
             if (sampleData[i] - sampleData[i - 1] < min) {
                 min = (int) sampleData[i] - (int) sampleData[i - 1];
+                minIndex = i;
             }
         }
-        if (max - min > FALLING_THRESHOLD) {
-            FALLING = true;
+        if (Math.abs(maxIndex - minIndex) == 1) {
+            if (max - min > FALLING_THRESHOLD)
+                FALLING = true;
+            Log.e("DetectFall", "Value max-min: " + (max - min) + " IndexVal: " + (maxIndex - minIndex));
         }
-        Log.e("DetectFall", "Value min-max: " + (max - min));
 
     }
     private void ActivityRecognition(double[] sample,double ay2) {
