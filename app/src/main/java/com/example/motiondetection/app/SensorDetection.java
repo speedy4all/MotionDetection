@@ -45,7 +45,7 @@ public class SensorDetection implements SensorEventListener {
             if(!PREVIEW_STATE.equalsIgnoreCase(CURRENT_STATE)){
                 PREVIEW_STATE  = CURRENT_STATE;
             }
-     }
+        }
     }
     public void Stop(){
         sensorManager.unregisterListener(this);
@@ -59,8 +59,8 @@ public class SensorDetection implements SensorEventListener {
                 //
             }
             if(curr_state.equalsIgnoreCase(SITTING_STATE)){
-               FINAL_STATE = 1;
-               //
+                FINAL_STATE = 1;
+                //
             }
             if(curr_state.equalsIgnoreCase(STANDING_STATE)){
                 FINAL_STATE = 2;

@@ -124,7 +124,22 @@
         android:layout_alignRight="@id/btnStartService"
         android:layout_alignEnd="@id/btnStartService" />
 
-
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_location"
+        android:id="@+id/buttonLocation"
+        android:background="@drawable/button_selector"
+        android:padding="12dp"
+        android:width="100dp"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:layout_alignLeft="@+id/btnStopService"
+        android:layout_alignStart="@+id/btnStopService"
+        android:layout_alignRight="@+id/btnStopService"
+        android:layout_alignEnd="@+id/btnStopService"
+        android:layout_below="@+id/btnStopService"
+        android:layout_above="@+id/textPleasedo" />
 
 
     <TextView

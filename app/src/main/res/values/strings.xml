@@ -9,6 +9,7 @@
     <string name="txt_rdEmergencyCall">Emergency Call</string>
     <string name="txt_rdEmergencySms">Emergency SMS</string>
     <string name="txt_rdEmergencyBoth">Both Actions</string>
+    <string name="btn_location">Current location</string>
     <string name="btn_addCallPerson">Add</string>
     <string name="btn_modifyCallPerson">Modify</string>
     <string name="txt_CallPerson">Emergency Number</string>

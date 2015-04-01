@@ -108,7 +108,7 @@ public class SettingsActivity extends ActionBarActivity{
         });
         rdTypeOfAction.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-             public void onCheckedChanged(RadioGroup group, int checkedId) {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId)
                 {
                     case R.id.rdCallAction:
