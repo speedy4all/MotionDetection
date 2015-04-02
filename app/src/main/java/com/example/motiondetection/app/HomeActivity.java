@@ -37,12 +37,6 @@ public class HomeActivity extends ActionBarActivity {
         addButtonClickListner();
     }
 
-    @Override
-    protected void onDestroy() {
-        // Method to stop the service
-        //stopService();
-        super.onDestroy();
-    }
 
     public void stopService() {
         stopService(new Intent(getBaseContext(), WorkService.class));
@@ -74,6 +68,14 @@ public class HomeActivity extends ActionBarActivity {
             EnableStopBtn();
             startService();
         } else {
+    public void addButtonClickListner()
+    {
+        if (!WorkService.isServiceRunning(context, WorkService.class))
+        {
+            EnableStartBtn();
+        }
+        else
+        {
             EnableStopBtn();
         }
 
