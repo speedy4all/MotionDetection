@@ -65,8 +65,8 @@ public class HomeActivity extends ActionBarActivity implements GoogleApiClient.C
         mResolvingError = savedInstanceState != null
                 && savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
 
-        btnStartService = (Button)findViewById(R.id.btnStartService);
-        btnStopService = (Button)findViewById(R.id.btnStopService);
+        btnStartService = (Button) findViewById(R.id.btnStartService);
+        btnStopService = (Button) findViewById(R.id.btnStopService);
         btnLocation = (Button) findViewById(R.id.buttonLocation);
         btnLocation.setVisibility(View.GONE);
 
@@ -132,9 +132,6 @@ public class HomeActivity extends ActionBarActivity implements GoogleApiClient.C
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
@@ -143,18 +140,14 @@ public class HomeActivity extends ActionBarActivity implements GoogleApiClient.C
         return super.onOptionsItemSelected(item);
     }
 
-    public void addButtonClickListner()
-    {
-        if (!WorkService.isServiceRunning(context, WorkService.class))
-        {
+    public void addButtonClickListner() {
+        if (!WorkService.isServiceRunning(context, WorkService.class)) {
             EnableStartBtn();
-        }
-        else
-        {
+        } else {
             EnableStopBtn();
         }
 
-        Button btnNavigator1 = (Button)findViewById(R.id.btnSensorLayout);
+        Button btnNavigator1 = (Button) findViewById(R.id.btnSensorLayout);
         btnNavigator1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,28 +155,27 @@ public class HomeActivity extends ActionBarActivity implements GoogleApiClient.C
             }
         });
 
-        Button btnNavigator2 = (Button)findViewById(R.id.button2);
+        Button btnNavigator2 = (Button) findViewById(R.id.button2);
         btnNavigator2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UserSettings userSettings = new UserSettings(HomeActivity.this);
-                if (!userSettings.getEmergencyNumberPreference().isEmpty())
-                {
+                if (!userSettings.getEmergencyNumberPreference().isEmpty()) {
                     String phNum = "tel:" + userSettings.getEmergencyNumberPreference();
                     Intent myIntent = new Intent(Intent.ACTION_CALL, Uri.parse(phNum));
-                    startActivity( myIntent ) ;
+                    startActivity(myIntent);
                 }
 
             }
         });
 
-        Button btnNavigator3 = (Button)findViewById(R.id.button3);
+        Button btnNavigator3 = (Button) findViewById(R.id.button3);
         btnNavigator3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String phNum = "tel:" + "112";
                 Intent myIntent = new Intent(Intent.ACTION_DIAL, Uri.parse(phNum));
-                startActivity( myIntent ) ;
+                startActivity(myIntent);
             }
         });
 
@@ -217,9 +209,8 @@ public class HomeActivity extends ActionBarActivity implements GoogleApiClient.C
                 HelperSensorManager hSensors = new HelperSensorManager(getApplicationContext());
                 List<Sensor> sensorList = hSensors.getSensorList();
                 StringBuilder strBuild = new StringBuilder();
-                for (Sensor s : sensorList)
-                {
-                    strBuild.append(s.getName()+ "\n");
+                for (Sensor s : sensorList) {
+                    strBuild.append(s.getName() + "\n");
                 }
                 new AlertDialog.Builder(HomeActivity.this)
                         .setTitle("Sensor List")
@@ -237,8 +228,7 @@ public class HomeActivity extends ActionBarActivity implements GoogleApiClient.C
         btnStartService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!WorkService.isServiceRunning(context, WorkService.class))
-                {
+                if (!WorkService.isServiceRunning(context, WorkService.class)) {
                     EnableStopBtn();
                     startService();
                 }
