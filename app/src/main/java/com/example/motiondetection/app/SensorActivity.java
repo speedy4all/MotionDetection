@@ -134,7 +134,7 @@ public class SensorActivity extends ActionBarActivity implements SensorEventList
         // where t is the low-pass filter's time-constant and
         // dT is the event delivery rate.
 
-        final float alpha = (float) 0.3;
+        final float alpha = (float) 0.5;
 
 
         // Isolate the force of gravity with the low-pass filter.

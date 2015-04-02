@@ -49,6 +49,8 @@
     <string name="ask_for_call">Do you want to make an emergency call ?</string>
     <string name="ask_for_sms">Do you want to send an emergency SMS ?</string>
     <string name="ask_for_both">Do you want to call and send an emergency SMS ?</string>
+    <string name="location_enabled">Localization service started</string>
+    <string name="location_disabled">Localization service stopped</string>
 
 
 </resources>
