@@ -40,7 +40,8 @@ public class WorkService extends Service {
                             CURRENT_STATE = 0;
                             if (userSettings.getEmergencyNumberPreference().length() > 2) {
                                 if (String.valueOf(R.string.type_sms).contentEquals(userSettings.getTypeOfActionPreference())) {
-                                    ShowSMSNotification(userSettings.getEmergencyNumberPreference(), "Am nevoie de ajutor !  Latitud = ");
+                                    ShowSMSNotification(userSettings.getEmergencyNumberPreference(), "Am nevoie de ajutor !  " +
+                                            "Ma aflu la adresa: " + HomeActivity.ADDRESS + "");
                                     CONTINUE = false;
                                 } else {
                                     if (userSettings.getTypeOfActionPreference().contentEquals(String.valueOf(R.string.type_call))) {
@@ -48,7 +49,8 @@ public class WorkService extends Service {
                                         CONTINUE = false;
                                     } else {
                                         if (userSettings.getTypeOfActionPreference().contentEquals(String.valueOf(R.string.type_both))) {
-                                            ShowBothNotification("Am nevoie de ajutor !");
+                                            ShowBothNotification("Am nevoie de ajutor !  " +
+                                                    "Ma aflu la adresa: " + HomeActivity.ADDRESS + "");
                                             CONTINUE = false;
                                         }
                                     }

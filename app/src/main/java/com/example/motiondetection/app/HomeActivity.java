@@ -36,12 +36,15 @@ import java.util.Locale;
 public class HomeActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status>,
         com.google.android.gms.location.LocationListener {
 
+    //Google location init
     private static final String STATE_RESOLVING_ERROR = "resolving_error";
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     private static final String DIALOG_ERROR = "dialog_error";
     private static final long UPDATE_INTERVAL = 30000;
     private static final long FAST_UPDATE_INTERVAL = 5000;
-    //Google location init
+
+    public static String ADDRESS = "";
+
     protected GoogleApiClient googleApiClient;
     Context context;
     Button btnStartService;
@@ -283,6 +286,14 @@ public class HomeActivity extends ActionBarActivity implements GoogleApiClient.C
     @Override
     public void onLocationChanged(Location location) {
         newLocation = location;
+        List<Address> addresses;
+        try {
+            addresses = geocoder.getFromLocation(newLocation.getLatitude(), newLocation.getLongitude(), 1);
+            if (!addresses.isEmpty())
+                ADDRESS = addresses.get(0).getAddressLine(0);
+        } catch (IOException e) {
+            ADDRESS = "No valid address...";
+        }
     }
 
 
