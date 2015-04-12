@@ -64,6 +64,12 @@ public class MainActivity extends ActionBarActivity {
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            if (!userSettings.getServicePreference()) {
+                                if (WorkService.isServiceRunning(context, WorkService.class))
+                                    stopService();
+
+                            }
+
                             finish();
                             System.exit(0);
                         }

@@ -1,75 +1,100 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/homescreen"
+    android:orientation="vertical"
     android:paddingTop="15dp">
 
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center_horizontal"
         android:text="@string/txt_title_settings"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal"/>
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <CheckBox
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:layout_marginStart="20sp"
+        android:text="Sensor sensibility"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/txtSeekBarValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/seekBarValue"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <CheckBox
+        android:id="@+id/chkServiceSetting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20sp"
+        android:layout_gravity="fill_horizontal"
             android:layout_marginLeft="20sp"
-            android:text="@string/txt_chkUseService"
-            android:id="@+id/chkServiceSetting"
-            android:layout_gravity="fill_horizontal"/>
-
+        android:layout_marginStart="20sp"
+        android:text="@string/txt_chkUseService" />
 
 
     <RadioGroup
+        android:id="@+id/rdGroupTypeOfAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20sp"
         android:layout_marginLeft="20sp"
-        android:id="@+id/rdGroupTypeOfAction">
+        android:layout_marginStart="20sp">
 
         <RadioButton
+            android:id="@+id/rdCallAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_rdEmergencyCall"
-            android:id="@+id/rdCallAction" />
+            android:text="@string/txt_rdEmergencyCall" />
+
         <RadioButton
+            android:id="@+id/rdSmsAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_rdEmergencySms"
-            android:id="@+id/rdSmsAction" />
+            android:text="@string/txt_rdEmergencySms" />
+
         <RadioButton
+            android:id="@+id/rdBothAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_rdEmergencyBoth"
-            android:id="@+id/rdBothAction" />
-        </RadioGroup>
+            android:text="@string/txt_rdEmergencyBoth" />
+    </RadioGroup>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20sp"
-        android:layout_marginLeft="20sp">
+        android:layout_marginLeft="20sp"
+        android:layout_marginStart="20sp">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/txt_CallPerson"
             android:id="@+id/txtSettingsEmgNumberLabel"
-            android:layout_gravity="center"/>
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20sp"
-            android:text="@string/btn_addCallPerson"
-            android:id="@+id/btnSettingsAddModPerson"
             android:layout_gravity="center"
-            android:background="@drawable/button_selector"/>
+            android:text="@string/txt_CallPerson"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/btnSettingsAddModPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20sp"
+            android:background="@drawable/button_selector"
+            android:text="@string/btn_addCallPerson" />
 
     </LinearLayout>
     <LinearLayout
@@ -78,12 +103,12 @@
         android:layout_gravity="center"
         android:layout_marginTop="10sp">
         <TextView
+            android:id="@+id/txtSettingsCallNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/txt_CallPersonEmpty"
-            android:id="@+id/txtSettingsCallNumber"/>
-        </LinearLayout>
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
 
 </LinearLayout>

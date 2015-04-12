@@ -149,9 +149,9 @@ public class SensorActivity extends ActionBarActivity implements SensorEventList
         linear_acceleration[0] = (float) (ax - gravity[0]);
         linear_acceleration[1] = (float) (ay - gravity[1]);
         linear_acceleration[2] = (float) (az - gravity[2]);
-
+        double accelerationVector = Math.sqrt(ax * ax + ay * ay + az * az);
         tvAccXValue.setText(getResources().getString(R.string.sensor_txt_acc_x_axis, linear_acceleration[0]));
-        tvAccYValue.setText(getResources().getString(R.string.sensor_txt_acc_y_axis, linear_acceleration[1]));
+        tvAccYValue.setText(getResources().getString(R.string.sensor_txt_acc_y_axis, accelerationVector));
         tvAccZValue.setText(getResources().getString(R.string.sensor_txt_acc_z_axis, linear_acceleration[2]));
 
         if(Math.abs(linear_acceleration[0]) > accXMax)
@@ -159,10 +159,10 @@ public class SensorActivity extends ActionBarActivity implements SensorEventList
             tvAccXValueMax.setText(getResources().getString(R.string.sensor_txt_acc_x_axis_max, linear_acceleration[0]));
             accXMax = linear_acceleration[0];
         }
-        if(Math.abs(linear_acceleration[1]) > accYMax)
+        if (accelerationVector > accYMax)
         {
-            tvAccYValueMax.setText(getResources().getString(R.string.sensor_txt_acc_y_axis_max, linear_acceleration[1]));
-            accYMax = linear_acceleration[1];
+            tvAccYValueMax.setText(getResources().getString(R.string.sensor_txt_acc_y_axis_max, accelerationVector));
+            accYMax = accelerationVector;
         }
         if(Math.abs(linear_acceleration[2]) > accZMax)
         {

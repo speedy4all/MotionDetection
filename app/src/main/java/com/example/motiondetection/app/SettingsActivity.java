@@ -7,18 +7,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.DialogPreference;
-import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 /**
@@ -26,13 +22,15 @@ import android.widget.TextView;
  */
 public class SettingsActivity extends ActionBarActivity{
 
+    public static final int PICK_CONTACT = 1;
+    public static int SEEK_BAR_VALUE;
     private CheckBox chkService;
     private RadioGroup rdTypeOfAction;
     private Button btnAddModPerson;
     private TextView txtSelectedNumber;
     private UserSettings userSettings;
-
-    public static final int PICK_CONTACT    = 1;
+    private SeekBar seekSensorSensitivity;
+    private TextView txtSeekBarValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +41,31 @@ public class SettingsActivity extends ActionBarActivity{
         rdTypeOfAction = (RadioGroup)findViewById(R.id.rdGroupTypeOfAction);
         btnAddModPerson = (Button)findViewById(R.id.btnSettingsAddModPerson);
         txtSelectedNumber = (TextView)findViewById(R.id.txtSettingsCallNumber);
+        txtSeekBarValue = (TextView) findViewById(R.id.txtSeekBarValue);
+        seekSensorSensitivity = (SeekBar) findViewById(R.id.seekBar);
+        seekSensorSensitivity.setMax(13);
+
+        seekSensorSensitivity.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                SEEK_BAR_VALUE = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                userSettings.setSensorSensitivity(SEEK_BAR_VALUE);
+                txtSeekBarValue.setText(getResources().getString(R.string.seekBarValue, SEEK_BAR_VALUE));
+                SensorDetection.FALLING_THRESHOLD = 10 + SEEK_BAR_VALUE;
+            }
+        });
 
         userSettings = new UserSettings(this);
+
 
         setClickListener();
     }
@@ -60,6 +81,7 @@ public class SettingsActivity extends ActionBarActivity{
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            seekSensorSensitivity.setProgress(5);
                             //trebuie adaugate valori implicite
                             dialog.dismiss();
                         }
@@ -80,6 +102,8 @@ public class SettingsActivity extends ActionBarActivity{
 
     private void loadSettings()
     {
+        seekSensorSensitivity.setProgress(userSettings.getSensorSensitivity());
+        txtSeekBarValue.setText(getResources().getString(R.string.seekBarValue, userSettings.getSensorSensitivity()));
         if (userSettings.getServicePreference()  && !chkService.isChecked())
             chkService.toggle();
         else if (!userSettings.getServicePreference() && chkService.isChecked())

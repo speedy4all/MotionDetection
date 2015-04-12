@@ -7,32 +7,50 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 
-public class WorkService extends Service {
+public class WorkService extends Service implements GoogleApiClient.ConnectionCallbacks,
+        LocationListener, GoogleApiClient.OnConnectionFailedListener {
 
+    //Google location init
+    private static final long UPDATE_INTERVAL = 120000;
+    private static final long FAST_UPDATE_INTERVAL = 60000;
     public static int CURRENT_STATE = 0;
     public static String SITTING_STATE = "SITTING";
     public static String WALKING_STATE = "WALKING";
     public static String FALLING_STATE = "FALLING";
     public static String STANDING_STATE = "STANDING";
     public static int FALLING;
-    public static int SITTING ;
+    public static int SITTING;
     public static int STANDING;
-    public static int WALKING ;
+    public static int WALKING;
     public static boolean CONTINUE = true;
-
+    private static String ADDRESS = "";
     Runnable refresh = new Runnable() {
         @Override
         public void run() {
+            if (!googleApiClient.isConnected() || !googleApiClient.isConnecting())
+                googleApiClient.connect();
             if (CONTINUE) {
                 try {
                     if (sensorActivity.FINAL_STATE != CURRENT_STATE) {
@@ -41,7 +59,7 @@ public class WorkService extends Service {
                             if (userSettings.getEmergencyNumberPreference().length() > 2) {
                                 if (String.valueOf(R.string.type_sms).contentEquals(userSettings.getTypeOfActionPreference())) {
                                     ShowSMSNotification(userSettings.getEmergencyNumberPreference(), "Am nevoie de ajutor !  " +
-                                            "Ma aflu la adresa: " + HomeActivity.ADDRESS + "");
+                                            "Ma aflu la adresa: " + ADDRESS + "");
                                     CONTINUE = false;
                                 } else {
                                     if (userSettings.getTypeOfActionPreference().contentEquals(String.valueOf(R.string.type_call))) {
@@ -50,7 +68,7 @@ public class WorkService extends Service {
                                     } else {
                                         if (userSettings.getTypeOfActionPreference().contentEquals(String.valueOf(R.string.type_both))) {
                                             ShowBothNotification("Am nevoie de ajutor !  " +
-                                                    "Ma aflu la adresa: " + HomeActivity.ADDRESS + "");
+                                                    "Ma aflu la adresa: " + ADDRESS + "");
                                             CONTINUE = false;
                                         }
                                     }
@@ -84,10 +102,13 @@ public class WorkService extends Service {
             mHandler.postDelayed(this, 2500);
         }
     };
-
-
     private static SoundPool soundPool;
     private final Handler mHandler = new Handler();
+    protected GoogleApiClient googleApiClient;
+    LocationRequest locationRequest;
+    private boolean localizationService = false;
+    private boolean mResolvingError = false;
+    private Geocoder geocoder;
     private NotificationManager notificationManager;
     private int NOTIFICATION = 1;
     private UserSettings userSettings;
@@ -118,8 +139,22 @@ public class WorkService extends Service {
         STANDING = soundPool.load(this, R.raw.standing, 3);
         WALKING = soundPool.load(this, R.raw.walking, 4);
 
+        SensorDetection.FALLING_THRESHOLD = 10 + userSettings.getSensorSensitivity();
+
+        geocoder = new Geocoder(this, Locale.getDefault());
+        buildGoogleApiClient();
+        createLocationRequest();
         // Display a notification about us starting.  We put an icon in the status bar.
         showNotification();
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
     }
 
     private void ShowBothNotification(String message) {
@@ -219,7 +254,7 @@ public class WorkService extends Service {
 
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, HomeActivity.class), 0);
+                new Intent(this, MainActivity.class), 0);
 
         // Set the info for the views that show in the notification panel.
         notification.setLatestEventInfo(this, getText(R.string.app_name),
@@ -246,7 +281,55 @@ public class WorkService extends Service {
         mHandler.removeCallbacks(refresh);
         sensorActivity.Stop();
         sensorActivity = null;
+        stopLocationUpdates();
         Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
         super.onDestroy();
     }
+
+    protected void createLocationRequest() {
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(UPDATE_INTERVAL);
+        locationRequest.setFastestInterval(FAST_UPDATE_INTERVAL);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    protected void startLocationUpdates() {
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                googleApiClient, locationRequest, this);
+    }
+
+    protected void stopLocationUpdates() {
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                googleApiClient, this);
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        startLocationUpdates();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        googleApiClient.connect();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        List<Address> addresses;
+        try {
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (!addresses.isEmpty())
+                ADDRESS = addresses.get(0).getAddressLine(0);
+        } catch (IOException e) {
+            ADDRESS = "No valid address...";
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Toast.makeText(getBaseContext(), "Google connection not yet established..." + result.toString(), Toast.LENGTH_LONG).show();
+        googleApiClient.connect();
+    }
+
+
 }
