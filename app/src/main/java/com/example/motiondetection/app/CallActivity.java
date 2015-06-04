@@ -14,6 +14,7 @@ public class CallActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
         userSettings = new UserSettings(this);
 
     }

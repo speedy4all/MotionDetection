@@ -46,6 +46,17 @@ public class WorkService extends Service implements GoogleApiClient.ConnectionCa
     public static int WALKING;
     public static boolean CONTINUE = true;
     private static String ADDRESS = "";
+    private static SoundPool soundPool;
+    private final Handler mHandler = new Handler();
+    protected GoogleApiClient googleApiClient;
+    LocationRequest locationRequest;
+    private boolean localizationService = false;
+    private boolean mResolvingError = false;
+    private Geocoder geocoder;
+    private NotificationManager notificationManager;
+    private int NOTIFICATION = 1;
+    private UserSettings userSettings;
+    private SensorDetection sensorActivity;
     Runnable refresh = new Runnable() {
         @Override
         public void run() {
@@ -53,33 +64,34 @@ public class WorkService extends Service implements GoogleApiClient.ConnectionCa
                 googleApiClient.connect();
             if (CONTINUE) {
                 try {
-                    if (sensorActivity.FINAL_STATE != CURRENT_STATE) {
-                        if (sensorActivity.FINAL_STATE == 0) {
-                            CURRENT_STATE = 0;
-                            if (userSettings.getEmergencyNumberPreference().length() > 2) {
-                                if (String.valueOf(R.string.type_sms).contentEquals(userSettings.getTypeOfActionPreference())) {
-                                    ShowSMSNotification(userSettings.getEmergencyNumberPreference(), "Am nevoie de ajutor !  " +
-                                            "Ma aflu la adresa: " + ADDRESS + "");
+
+                    if (sensorActivity.FINAL_STATE == 0) {
+                        CURRENT_STATE = 0;
+                        if (userSettings.getEmergencyNumberPreference().length() > 2) {
+                            if (String.valueOf(R.string.type_sms).contentEquals(userSettings.getTypeOfActionPreference())) {
+                                ShowSMSNotification(userSettings.getEmergencyNumberPreference(), "Am nevoie de ajutor !  " +
+                                        "Ma aflu la adresa: " + ADDRESS + "");
+                                CONTINUE = false;
+                            } else {
+                                if (userSettings.getTypeOfActionPreference().contentEquals(String.valueOf(R.string.type_call))) {
+                                    ShowCallNotification();
                                     CONTINUE = false;
                                 } else {
-                                    if (userSettings.getTypeOfActionPreference().contentEquals(String.valueOf(R.string.type_call))) {
-                                        ShowCallNotification();
+                                    if (userSettings.getTypeOfActionPreference().contentEquals(String.valueOf(R.string.type_both))) {
+                                        ShowBothNotification("Am nevoie de ajutor !  " +
+                                                "Ma aflu la adresa: " + ADDRESS + "");
                                         CONTINUE = false;
-                                    } else {
-                                        if (userSettings.getTypeOfActionPreference().contentEquals(String.valueOf(R.string.type_both))) {
-                                            ShowBothNotification("Am nevoie de ajutor !  " +
-                                                    "Ma aflu la adresa: " + ADDRESS + "");
-                                            CONTINUE = false;
-                                        }
                                     }
                                 }
-
                             }
 
-                            soundPool.play(FALLING, 1f, 1f, 1, 0, 1f);
-                            sensorActivity.FALLING = false;
+                        }
 
-                        } else if (sensorActivity.FINAL_STATE == 3) {
+                        soundPool.play(FALLING, 1f, 1f, 1, 0, 1f);
+                        sensorActivity.FALLING = false;
+
+                    } else if (sensorActivity.FINAL_STATE != CURRENT_STATE) {
+                        if (sensorActivity.FINAL_STATE == 3) {
                             CURRENT_STATE = 3;
                             //showActivityNotification(WALKING_STATE);
                             soundPool.play(WALKING, 1f, 1f, 1, 0, 1f);
@@ -94,25 +106,15 @@ public class WorkService extends Service implements GoogleApiClient.ConnectionCa
                         }
                     }
 
+
                     Log.d(getString(R.string.app_name), "Service running");
 
                 } catch (Exception e) {
                 }
             }
-            mHandler.postDelayed(this, 2500);
+            mHandler.postDelayed(this, 2000);
         }
     };
-    private static SoundPool soundPool;
-    private final Handler mHandler = new Handler();
-    protected GoogleApiClient googleApiClient;
-    LocationRequest locationRequest;
-    private boolean localizationService = false;
-    private boolean mResolvingError = false;
-    private Geocoder geocoder;
-    private NotificationManager notificationManager;
-    private int NOTIFICATION = 1;
-    private UserSettings userSettings;
-    private SensorDetection sensorActivity;
 
     public static boolean isServiceRunning(Context context, Class<?> serviceClass) {
 

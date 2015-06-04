@@ -15,6 +15,7 @@ public class SendSMSActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
         Intent intent = getIntent();
         _phoneNumber = intent.getStringExtra("phone");
         _message = intent.getStringExtra("message");

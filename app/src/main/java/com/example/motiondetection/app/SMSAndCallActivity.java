@@ -16,6 +16,7 @@ public class SMSAndCallActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
         userSettings = new UserSettings(this);
         Intent intent = getIntent();
         _message = intent.getStringExtra("message");

@@ -59,19 +59,21 @@ public class SensorDetection implements SensorEventListener {
             if (FALLING && (CURRENT_STATE.equalsIgnoreCase(SITTING_STATE) || CURRENT_STATE.equalsIgnoreCase(NORMAL_STATE))) {
                 FINAL_STATE = 0;
                 //Log.e(FALLING_STATE, FALLING_STATE);
-            }
+            } else
             if (curr_state.equalsIgnoreCase(SITTING_STATE)) {
                 FINAL_STATE = 1;
                 // Log.e(SITTING_STATE, SITTING_STATE);
-            }
+            } else
             if (curr_state.equalsIgnoreCase(STANDING_STATE)) {
                 FINAL_STATE = 2;
                 // Log.e(STANDING_STATE, STANDING_STATE);
-            }
+            } else
             if (curr_state.equalsIgnoreCase(WALKING_STATE)) {
                 //Log.e(WALKING_STATE, WALKING_STATE);
                 FINAL_STATE = 3;
-            }
+            } else
+                FINAL_STATE = 4;
+
         }
 
 
